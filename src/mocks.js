@@ -1,5 +1,4 @@
 import { setupWorker, rest } from "msw";
-import { setupServer } from "msw/node";
 
 export const handlers = [
   rest.get("https://api.github.com/users/wrong", (req, res, ctx) => {
@@ -26,11 +25,3 @@ export const handlers = [
 ];
 
 export const worker = setupWorker(...handlers);
-
-export const enableMocks = async () => {
-  await worker.start();
-
-  const server = setupServer(...handlers);
-
-  server.listen();
-}
